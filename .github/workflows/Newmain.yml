@@ -148,13 +148,17 @@ jobs:
         run: |
           cd ./AnyKernel3
           zip -r AnyKernel3_KernelSU_Next_${{ env.KSUVER }}_${{ github.event.inputs.FEIL }}.zip .
-      - name: Create Release Tag
-        run: |
-          git tag -a v${{ env.KSUVER }}-${{ github.event.inputs.FEIL }} -m "Release v${{ env.KSUVER }}-${{ github.event.inputs.FEIL }}"
-      - name: Upload AnyKernel3 to Release
+      - name: Create Release
+        id: create_release
         uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: ./AnyKernel3/AnyKernel3_KernelSU_Next_${{ env.KSUVER }}_${{ github.event.inputs.FEIL }}.zip
-          tag_name: v${{ env.KSUVER }}-${{ github.event.inputs.FEIL }}
-          generate_release_notes: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: release-${{ github.event.inputs.FEIL }}-${{ env.KSUVER }} # Include FEIL and KSUVER
+          name: Release KernelSU Next ${{ github.event.inputs.FEIL }} ${{ env.KSUVER }}
+          body: |
+            Release for ${{ github.event.inputs.FEIL }} based on branch ${{ github.event.inputs.CPU }}
+            KSU Version: ${{ env.KSUVER }}
+            Android Version: ${{ github.event.inputs.ANDROID_VERSION }}
+            Kernel Version: ${{ github.event.inputs.KERNEL_VERSION }}
