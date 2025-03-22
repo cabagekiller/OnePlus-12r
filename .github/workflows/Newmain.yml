@@ -148,7 +148,7 @@ jobs:
         run: |
           cd ./AnyKernel3
           zip -r AnyKernel3_KernelSU_Next_${{ env.KSUVER }}_${{ github.event.inputs.FEIL }}.zip .
-       - name: Create Release Tag
+      - name: Create Release Tag
         run: |
           git tag -a v${{ env.KSUVER }}-${{ github.event.inputs.FEIL }} -m "Release v${{ env.KSUVER }}-${{ github.event.inputs.FEIL }}"
       - name: Upload AnyKernel3 to Release
