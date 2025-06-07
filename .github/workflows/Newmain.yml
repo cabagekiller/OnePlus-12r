@@ -133,7 +133,7 @@ jobs:
           # Remove defconfig check
           sed -i '2s/check_defconfig//' ./common/build.config.gki
       - name: Run sed and perl Commands
-        working-directory: ${{ env.BUILD_DIR }}/${{ env.KERNEL_DIR }}/kernel_platform
+        working-directory: kernel_workspace/kernel_platform
         run: |
           
           echo "Running sed commands..."
